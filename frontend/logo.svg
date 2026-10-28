@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="City Care Hospital logo">
+  <!-- CITY CARE HOSPITAL — custom logo mark.
+       Medical cross + ECG/heartbeat trace = care + clinical precision.
+       100% vector, works offline, no external fonts or images. -->
+  <defs>
+    <linearGradient id="ccBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#818cf8"/>
+      <stop offset="0.48" stop-color="#4f46e5"/>
+      <stop offset="1" stop-color="#0891b2"/>
+    </linearGradient>
+    <linearGradient id="ccCross" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#e0f2fe"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="30" fill="url(#ccBg)"/>
+  <circle cx="64" cy="64" r="54" fill="none" stroke="#ffffff" stroke-opacity="0.14" stroke-width="2"/>
+  <circle cx="64" cy="64" r="43" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="2"/>
+  <!-- faint heartbeat line across the whole badge -->
+  <path d="M8 64 H29 l7 -14 11 28 9 -20 6 6 h58" fill="none" stroke="#ffffff"
+        stroke-opacity="0.22" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- medical cross -->
+  <rect x="53" y="19" width="22" height="90" rx="8" fill="url(#ccCross)"/>
+  <rect x="19" y="53" width="90" height="22" rx="8" fill="url(#ccCross)"/>
+  <!-- ECG trace running along the horizontal arm -->
+  <path d="M21 64 H41 l6 -10 8 20 7 -15 5 5 h40" fill="none" stroke="#4f46e5"
+        stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="64" cy="64" r="6.5" fill="#06b6d4" stroke="#ffffff" stroke-width="2"/>
+  <!-- small care spark -->
+  <path d="M99 26 l2.6 6.4 6.4 2.6 -6.4 2.6 -2.6 6.4 -2.6 -6.4 -6.4 -2.6 6.4 -2.6 z"
+        fill="#ffffff" fill-opacity="0.9"/>
+</svg>

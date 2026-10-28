@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>City Care Hospital — Hospital Management System</title>
+<link rel="icon" type="image/svg+xml" href="/logo.svg">
+<script>
+/* Applied BEFORE the stylesheet loads so dark mode never flashes white. */
+(function(){try{
+  var t = localStorage.getItem('cc_theme') || 'light';
+  if(t !== 'dark' && t !== 'light' && t !== 'auto') t = 'light';  /* ignore stale/invalid values */
+  if(t === 'auto'){ t = (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+  document.documentElement.setAttribute('data-theme', t);
+  var z = parseFloat(localStorage.getItem('cc_textsize'));
+  if(z && z > 0.8 && z < 1.6) document.documentElement.style.setProperty('--tscale', z);
+  document.documentElement.classList.add('colorful');
+  /* 3D watermark preferences must also be applied before CSS loads */
+  try{
+    var w = JSON.parse(localStorage.getItem('cc_wm') || 'null');
+    if(w && typeof w === 'object'){
+      var sp={slow:'36s',normal:'22s',fast:'11s',manual:'0s'};
+      var op={faint:.06,normal:.11,strong:.20};
+      var sz={small:'230px',medium:'330px',large:'440px'};
+      if(w.on===false) document.documentElement.classList.add('wm-off');
+      if(w.speed==='manual') document.documentElement.classList.add('wm-manual');
+      document.documentElement.style.setProperty('--wm-speed', sp[w.speed]||'22s');
+      document.documentElement.style.setProperty('--wm-opacity', op[w.strength]||.11);
+      document.documentElement.style.setProperty('--wm-size', sz[w.size]||'330px');
+      document.documentElement.style.setProperty('--wm-angle', (Number(w.angle)||0)+'deg');
+    }
+  }catch(e){}
+}catch(e){}})();
+</script>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<!-- ================= 3D ROTATING LOGO WATERMARK =================
+     Pure CSS 3D (transform-style: preserve-3d + @keyframes).
+     pointer-events:none so it NEVER blocks clicks on the page. -->
+<div class="wm-stage" id="wmStage" aria-hidden="true">
+  <div class="wm-glow"></div>
+  <div class="wm-pos" id="wmPos">
+    <div class="wm-3d" id="wm3d">
+      <div class="wm-face wm-front"><img src="/logo.png" alt=""></div>
+      <div class="wm-face wm-back"><img src="/logo.png" alt=""></div>
+      <div class="wm-face wm-right"></div>
+      <div class="wm-face wm-left"></div>
+      <div class="wm-face wm-top"></div>
+      <div class="wm-face wm-bottom"></div>
+    </div>
+    <div class="wm-shadow"></div>
+  </div>
+</div>
+
+<div class="app-shell">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark"><img src="/logo.svg" alt="City Care Hospital logo"></div>
+      <div><div class="brand-name" id="brandName">City<span>Care</span></div>
+           <div class="brand-sub" id="brandSub">Hospital Management</div></div>
+    </div>
+
+    <div class="db-chip">
+      <span class="dot"></span>
+      <div><b>hospital.db</b><small id="dbInfo">connecting…</small></div>
+    </div>
+
+    <nav class="nav" id="nav">
+      <div class="nav-sec">OVERVIEW</div>
+      <a href="#/dashboard"   data-page="dashboard"><span class="ic">▦</span> Dashboard</a>
+      <div class="nav-sec">HOSPITAL</div>
+      <a href="#/patients"    data-page="patients"><span class="ic">♙</span> Patients</a>
+      <a href="#/doctors"     data-page="doctors"><span class="ic">✚</span> Doctors</a>
+      <a href="#/appointments" data-page="appointments"><span class="ic">▤</span> Appointments</a>
+      <a href="#/rooms"       data-page="rooms"><span class="ic">▣</span> Beds / Rooms</a>
+      <a href="#/book"        data-page="book"><span class="ic">＋</span> Book Appointment</a>
+      <a href="#/billing"     data-page="billing"><span class="ic">₹</span> Billing &amp; Revenue</a>
+      <a href="#/pharmacy"    data-page="pharmacy"><span class="ic">⬡</span> Pharmacy</a>
+      <div class="nav-sec">DBMS CORE</div>
+      <a href="#/sql"         data-page="sql" class="nav-star"><span class="ic">⌘</span> SQL Console <em>36</em></a>
+      <a href="#/schema"      data-page="schema"><span class="ic">▥</span> Schema / Dictionary</a>
+      <a href="#/er"          data-page="er"><span class="ic">◇</span> ER Diagram</a>
+      <div class="nav-sec">PROJECT</div>
+      <a href="#/about"       data-page="about"><span class="ic">ⓘ</span> Project Info</a>
+      <a href="#/downloads"   data-page="downloads"><span class="ic">↓</span> Downloads</a>
+    </nav>
+
+    <div class="side-foot">
+      <b id="sideFootTitle">DBMS Final Project</b>
+      <span>10 tables · 13 foreign keys<br>3 views · 3 triggers · 36 queries</span>
+    </div>
+  </aside>
+
+  <div class="content">
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+      <div class="crumb"><span id="crumbBrand">City Care Hospital</span><b id="pageTitle">Dashboard</b></div>
+      <div class="top-right">
+        <div class="top-clock" id="topClock" title="Your real, live local date and time">
+          <b id="topClockTime">--:--:--</b>
+          <small id="topClockZone">detecting time zone…</small>
+        </div>
+        <span class="live-pill" id="liveBadge"><i></i> LIVE SQL DATABASE</span>
+        <div class="top-tools">
+          <button class="tbtn" id="tsBtn" title="Change text size">A<span class="gi">＋</span></button>
+          <button class="tbtn" id="wmBtn" title="3D logo watermark — click to control">◈</button>
+          <button class="tbtn" id="themeBtn" title="Dark mode / light mode">☾</button>
+          <button class="icon-btn" id="helpBtn" title="Project help">?</button>
+        </div>
+      </div>
+    </header>
+    <div id="themeMenu" class="theme-menu" hidden>
+      <button data-theme="light">☀ Light mode</button>
+      <button data-theme="dark">☾ Dark mode</button>
+      <button data-theme="auto">◐ Follow my system</button>
+      <button data-act="size">A＋ Cycle text size</button>
+    </div>
+    <div id="wmMenu" class="theme-menu wm-menu" hidden>
+      <div class="wm-menu-h">◈ 3D LOGO WATERMARK</div>
+      <button data-wm="onoff">◉ Show / hide</button>
+      <button data-wm="speed">⟳ Rotation speed</button>
+      <button data-wm="strength">◐ Strength</button>
+      <button data-wm="size">⤢ Size</button>
+      <button data-wm="mouse">✥ Follow mouse</button>
+      <div class="wm-slider">
+        <label>Manual angle <span id="wmAngleVal">0°</span></label>
+        <input type="range" id="wmAngle" min="0" max="360" value="0">
+      </div>
+      <div class="wm-hint">Drag the slider to pose the logo by hand — this switches to Manual rotation. Your choices are saved in the browser.</div>
+    </div>
+
+    <main id="view" class="view">
+      <div class="loading"><div class="spinner"></div>Loading data from SQL…</div>
+    </main>
+
+    <footer class="foot" id="footText">
+      City Care Hospital · Hospital / Clinic Management System · Built with Python + SQLite + vanilla JS
+    </footer>
+  </div>
+</div>
+
+<div id="toast" class="toast-wrap"></div>
+<div id="modal" class="modal-wrap" hidden></div>
+
+<script src="/config.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

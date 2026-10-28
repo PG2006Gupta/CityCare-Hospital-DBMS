@@ -1,0 +1,93 @@
+=====================================================================
+ CITY CARE HOSPITAL — DBMS FINAL PROJECT (COMPLETE SUBMISSION PACK)
+=====================================================================
+
+Everything is already built and tested. Follow these 4 steps.
+
+*** NEW VERSION v2 ***
+  - Bigger text (A+ button), coloured headings, dark mode (moon button)
+  - Custom City Care Hospital logo (logo.svg / logo_full.svg)
+  - Beds / Rooms page with the patient currently in each bed
+  - REAL live date + time in the header of EVERY page (no separate page)
+  - Appointments: Upcoming / Ongoing / Past tabs + adjustable clinic clock
+  - 3D rotating logo watermark behind every page (control it with the
+    diamond button in the top bar: speed, size, strength, manual angle)
+  - 13 screens total
+If you already have an older copy: download the new ZIP, extract it over the
+old folder, STOP the running server with Ctrl+C, run "python server.py" again
+(server.py changed), then press Ctrl+F5 in Chrome. Full steps: HOW_TO_RUN.md.
+
+STEP 1 — RUN THE APP
+--------------------
+    cd fullstack
+    python3 server.py
+
+Open http://localhost:8000 in your browser.
+(Windows: use "python" instead of "python3".)
+No installation, no npm, no internet, no API keys needed.
+
+>>> Detailed VS Code walkthrough with screenshots-free steps and a
+    troubleshooting table: open HOW_TO_RUN.md  <<<
+
+STEP 2 — SEE THE DATABASE WORK
+------------------------------
+Open "SQL Console" in the left sidebar and click "Verify all 36".
+You should see "36 / 36 queries passed".
+Every other screen has a "SQL behind this screen" panel at the bottom.
+
+STEP 3 — FINISH THE DOCUMENTS
+------------------------------
+Open submission/CityCare_Project_Report.docx in Word:
+  - Replace < Your Name >, < Your Roll No. >, < Teacher's Name >
+  - Paste screenshots into the grey [ PASTE SCREENSHOT HERE ] boxes
+  - Export as PDF
+
+Open submission/CityCare_Presentation.pptx:
+  - Put your name on slide 1
+  - Add 2-3 app screenshots on slide 9
+
+SUBMISSION.md contains the exact screenshot checklist, the report
+structure, a 5-minute demo script, and 20 viva questions with answers
+in the project files.
+
+STEP 4 — SUBMIT
+---------------
+Give your teacher:
+  - schema.sql, seed.sql, queries.sql  (SQL scripts)
+  - hospital.db                        (the real database)
+  - er_diagram.svg / er_diagram.png    (ER diagram)
+  - the report PDF and the PPT
+  - this source code folder
+
+---------------------------------------------------------------------
+WHAT IS INSIDE
+---------------------------------------------------------------------
+  server.py                     BACKEND — Python REST API + SQLite
+  frontend/index.html           FRONTEND — SPA shell
+  frontend/app.js               FRONTEND — 13 screens + SQL console
+  frontend/styles.css           FRONTEND — complete offline design system
+  frontend/er_diagram.svg       ER diagram
+  database/schema.sql           10 tables, 13 FKs, views, triggers, indexes
+  database/seed.sql             183 appointments, 30 patients, 155 bills
+  database/queries.sql          36 verified SQL queries
+  database/hospital.db          the SQLite database (built on first run)
+  submission/*.docx / *.pptx    ready-to-edit report and presentation
+  README.md                     full technical documentation
+  SUBMISSION.md                 submission guide
+
+---------------------------------------------------------------------
+IF SOMETHING BREAKS
+---------------------------------------------------------------------
+  - Broken SQL Console data? Click "Reset DB" on that page.
+  - Port busy?  PORT=8080 python3 server.py
+  - Blank page? Open http://localhost:8000/ (not the .html file directly).
+  - Still stuck? Delete database/hospital.db and restart the server.
+
+---------------------------------------------------------------------
+VIVA ONE-LINER
+---------------------------------------------------------------------
+"It is a three-tier hospital management system: a JavaScript frontend,
+a Python REST backend and a SQLite database with ten normalised tables.
+Every screen runs real SQL, and the built-in SQL Console lets you run
+all 36 queries live — that is how I can prove the database work."
+=====================================================================
