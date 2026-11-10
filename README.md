@@ -28,7 +28,7 @@ cd hospital_project/fullstack
 python3 server.py
 ```
 
-Then open **http://localhost:8000**.
+Then open  https://pg2006gupta.github.io/CityCare-Hospital-DBMS/
 
 Requires **Python 3.8+** only (uses `http.server` and `sqlite3` from the standard library).
 On first run the backend creates `database/hospital.db` by executing
